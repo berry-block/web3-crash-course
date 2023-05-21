@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import ActionButton from "./ActionButton";
+import { useConnectWallet } from "@web3-onboard/react";
 
 const Navbar = () => {
+  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const truncateAddress = (address: string) => {
+    return address.slice(0, 5) + "..." + address.slice(-4);
   };
 
   return (
@@ -18,7 +25,16 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block w-full">
               <div className="ml-10 flex flex-row-reverse items-baseline space-x-4">
-                <ActionButton onClick={() => {}} />
+                <ActionButton
+                  onClick={wallet ? () => disconnect(wallet) : () => connect()}
+                  text={
+                    wallet
+                      ? `Connected with: ${truncateAddress(
+                          wallet.accounts[0].address
+                        )}`
+                      : "Connect Wallet"
+                  }
+                />
               </div>
             </div>
           </div>
