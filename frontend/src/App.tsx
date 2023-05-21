@@ -1,7 +1,7 @@
 import { Web3OnboardProvider, init } from "@web3-onboard/react";
 import injectedModule from "@web3-onboard/injected-wallets";
 
-import Navbar from "./components/Navbar";
+import LandingPage from "./components/LandingPage";
 
 const polygonMumbai = {
   id: "0x13881",
@@ -34,7 +34,7 @@ const App = () => {
   return (
     <Web3OnboardProvider web3Onboard={web3Onboard}>
       <div className="App">
-        <Navbar />
+        <LandingPage />
       </div>
     </Web3OnboardProvider>
   );
