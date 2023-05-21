@@ -89,30 +89,16 @@ const Navbar = () => {
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a
-            href="#"
-            className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          >
-            About
-          </a>
-          <a
-            href="#"
-            className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Services
-          </a>
-          <a
-            href="#"
-            className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Contact
-          </a>
+          <ActionButton
+            onClick={wallet ? () => disconnect(wallet) : () => connect()}
+            text={
+              wallet
+                ? `Connected with: ${truncateAddress(
+                    wallet.accounts[0].address
+                  )}`
+                : "Connect Wallet"
+            }
+          />
         </div>
       </div>
     </nav>
