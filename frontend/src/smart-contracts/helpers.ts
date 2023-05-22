@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
 import type { WalletState } from "@web3-onboard/core";
 
-import * as FellasArtifact from "../smart-contracts/artifacts/Fellas.json";
-import { Fellas } from "./types/Fellas";
+import FellasArtifact from "../smart-contracts/artifacts/Fellas.json";
 import { FELLAS_ADDRESS } from "../environment";
+import { Fellas } from "./types/Fellas";
 
 export type WalletType = ethers.providers.Provider | WalletState | null;
 
