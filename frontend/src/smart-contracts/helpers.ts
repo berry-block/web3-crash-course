@@ -3,16 +3,16 @@ import type { WalletState } from "@web3-onboard/core";
 
 import * as FellasArtifact from "../smart-contracts/artifacts/Fellas.json";
 import { Fellas } from "./types/Fellas";
+import { FELLAS_ADDRESS } from "../environment";
 
-export const getFellasContract = async (
-  address: string,
-  wallet: ethers.providers.Provider | WalletState | null
-) => {
+export type WalletType = ethers.providers.Provider | WalletState | null;
+
+export const getFellasContract = (wallet: WalletType) => {
   if (!wallet) {
     throw new Error("Wallet not connected");
   }
 
-  const fellas = new ethers.Contract(address, FellasArtifact.abi);
+  const fellas = new ethers.Contract(FELLAS_ADDRESS, FellasArtifact.abi);
 
   return fellas.connect(
     wallet instanceof ethers.providers.Provider

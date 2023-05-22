@@ -1,6 +1,8 @@
 import { useConnectWallet } from "@web3-onboard/react";
+
 import ActionButton from "./ActionButton";
 import Navbar from "./Navbar";
+import { mint } from "../smart-contracts/api";
 
 const LandingPage = () => {
   const [{ wallet }, connect] = useConnectWallet();
@@ -23,9 +25,11 @@ const LandingPage = () => {
           </p>
           <div className="flex justify-center mt-8">
             <ActionButton
-              onClick={wallet ? () => {
-                const provider = 
-              } : () => connect()}
+              onClick={
+                wallet
+                  ? async () => await mint(wallet)
+                  : async () => await connect()
+              }
               text={wallet ? "Mint" : "Connect Wallet"}
             />
           </div>
