@@ -5,7 +5,7 @@ import FellasArtifact from "../smart-contracts/artifacts/Fellas.json";
 import { FELLAS_ADDRESS } from "../environment";
 import { Fellas } from "./types/Fellas";
 
-export type WalletType = ethers.providers.Provider | WalletState | null;
+export type WalletType = ethers.providers.Web3Provider | WalletState | null;
 
 export const getFellasContract = (wallet: WalletType) => {
   if (!wallet) {
@@ -13,10 +13,10 @@ export const getFellasContract = (wallet: WalletType) => {
   }
 
   const fellas = new ethers.Contract(FELLAS_ADDRESS, FellasArtifact.abi);
-
-  return fellas.connect(
-    wallet instanceof ethers.providers.Provider
+  const provider =
+    wallet instanceof ethers.providers.Web3Provider
       ? wallet
-      : new ethers.providers.Web3Provider(wallet.provider, "any")
-  ) as Fellas;
+      : new ethers.providers.Web3Provider(wallet.provider);
+
+  return fellas.connect(provider.getSigner()) as Fellas;
 };

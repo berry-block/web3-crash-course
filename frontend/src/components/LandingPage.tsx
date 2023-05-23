@@ -1,4 +1,5 @@
 import { useConnectWallet } from "@web3-onboard/react";
+import { toast } from "react-toastify";
 
 import ActionButton from "./ActionButton";
 import Navbar from "./Navbar";
@@ -27,7 +28,10 @@ const LandingPage = () => {
             <ActionButton
               onClick={
                 wallet
-                  ? async () => await mint(wallet)
+                  ? async () => {
+                      const receipt = await (await mint(wallet)).wait();
+                      toast(`Token minted! Tx: ${receipt.transactionHash}`);
+                    }
                   : async () => await connect()
               }
               text={wallet ? "Mint" : "Connect Wallet"}
